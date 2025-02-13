@@ -1,6 +1,16 @@
 import React from "react";
+import { getMatchesFootball, getMatchesFootballFinished } from "@/api";
+import Status from "./components/Status";
 
-export default function Home() {
+export default async function Home() {
+  const getDatas = await getMatchesFootball();
+  const getDatasFinished = await getMatchesFootballFinished();
+
+  const matchesDatas = getDatas?.matches
+  const matchesDatasFinished = getDatasFinished?.matches
+
+
+
   const nd = new Date();
   const dateConvert = nd.toDateString();
 
@@ -12,7 +22,7 @@ export default function Home() {
           <p>{dateConvert}</p>
         </div>
       </div>
-      {/* match data */}
+      <Status matchesList={matchesDatas} matchesListFinished={matchesDatasFinished} />
     </section>
   );
 }
